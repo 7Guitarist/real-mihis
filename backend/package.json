@@ -1,9 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "engines": {
-    "node": ">=22"
-  },
   "main": "index.js",
   "scripts": {
     "start": "cd src && nodemon server.ts",
@@ -14,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/node": "^22.4.1",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "typescript": "^5.5.4"
