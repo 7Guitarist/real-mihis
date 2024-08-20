@@ -1,8 +1,16 @@
+import { WeighingHistory } from './app/shared/models/weighing-history';
 import { Child } from './app/shared/models/child';
+import { Mother } from './app/shared/models/mother';
+import { Vaccination } from './app/shared/models/vaccination';
+import { User } from './app/shared/models/user';
+import { NutritionalStatusReport } from './app/shared/models/nutritional-status-report';
+import { AuditTrail } from './app/shared/models/audit-trail';
+import { Schedule } from './app/shared/models/user-schedule';
 
 export const child: Child[] = [
   {
     id: 'child1',
+    motherId: 'mother1',
     firstName: 'Katleen',
     lastName: 'Dela Cruz',
     purok: '2',
@@ -10,14 +18,14 @@ export const child: Child[] = [
     weight: 17,
     height: 98,
     barangay: 'Bangad',
-    dateOfBirth: '11-26-2020',
+    dateOfBirth: '2020-11-26',
     photoPath: 'assets/img/photo1.jpg',
     vaccinations: [
       {
         vaccineType: 'BCG',
         doseNumber: '1st Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '12-02-2020',
+        dateOfVaccination: '2020-12-02',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -25,7 +33,7 @@ export const child: Child[] = [
         vaccineType: 'Hepatitis B Vaccine',
         doseNumber: '1st Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '12-09-2020',
+        dateOfVaccination: '2020-12-09',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -33,7 +41,7 @@ export const child: Child[] = [
         vaccineType: 'Pentavalent Vaccine',
         doseNumber: '1st Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '02-03-2021',
+        dateOfVaccination: '2021-02-03',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -41,7 +49,7 @@ export const child: Child[] = [
         vaccineType: 'Oral Polio Vaccine (OPV)',
         doseNumber: '1st Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '02-03-2021',
+        dateOfVaccination: '2021-02-03',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -49,7 +57,7 @@ export const child: Child[] = [
         vaccineType: 'Pentavalent Vaccine',
         doseNumber: '2nd Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '03-10-2021',
+        dateOfVaccination: '2021-03-10',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -57,7 +65,7 @@ export const child: Child[] = [
         vaccineType: 'Oral Polio Vaccine (OPV)',
         doseNumber: '2nd Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '03-10-2021',
+        dateOfVaccination: '2021-03-10',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -65,7 +73,7 @@ export const child: Child[] = [
         vaccineType: 'Pentavalent Vaccine',
         doseNumber: '3rd Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '04-14-2021',
+        dateOfVaccination: '2021-04-14',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -73,7 +81,7 @@ export const child: Child[] = [
         vaccineType: 'Oral Polio Vaccine (OPV)',
         doseNumber: '3rd Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '04-14-2021',
+        dateOfVaccination: '2021-04-14',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -81,7 +89,7 @@ export const child: Child[] = [
         vaccineType: 'Inactivated Polio Vaccine (IPV)',
         doseNumber: '1st Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '04-14-2021',
+        dateOfVaccination: '2021-04-14',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -89,7 +97,7 @@ export const child: Child[] = [
         vaccineType: 'Inactivated Polio Vaccine (IPV)',
         doseNumber: '2nd Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '07-28-2021',
+        dateOfVaccination: '2021-07-28',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -97,7 +105,7 @@ export const child: Child[] = [
         vaccineType: 'Pneumococcal Conjugate Vaccine (PCV)',
         doseNumber: '1st Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '02-03-2021',
+        dateOfVaccination: '2021-02-03',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -105,7 +113,7 @@ export const child: Child[] = [
         vaccineType: 'Pneumococcal Conjugate Vaccine (PCV)',
         doseNumber: '2nd Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '03-10-2021',
+        dateOfVaccination: '2021-03-10',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -113,7 +121,7 @@ export const child: Child[] = [
         vaccineType: 'Pneumococcal Conjugate Vaccine (PCV)',
         doseNumber: '3rd Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '04-14-2021',
+        dateOfVaccination: '2021-04-14',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -121,7 +129,7 @@ export const child: Child[] = [
         vaccineType: 'Measles, Mumps, Rubella Vaccine (MMR)',
         doseNumber: '1st Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '09-01-2021',
+        dateOfVaccination: '2021-09-01',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
@@ -129,16 +137,16 @@ export const child: Child[] = [
         vaccineType: 'Measles, Mumps, Rubella Vaccine (MMR)',
         doseNumber: '2nd Dose',
         placeOfVaccination: 'Barangay Health Center',
-        dateOfVaccination: '11-24-2021',
+        dateOfVaccination: '2021-11-24',
         midwifeId: 'midwife1',
         bhwId: 'bhw1',
       },
     ],
     isFullyVaccinated: true,
-    dateFullyVaccinated: '11-24-2021',
+    dateFullyVaccinated: '2021-11-24',
     weighingHistory: [
       {
-        date: '01-25-2024',
+        date: '2024-01-25',
         weight: 17,
         height: 98,
         weightForAgeStatus: 'Normal',
@@ -149,3 +157,43 @@ export const child: Child[] = [
     ],
   },
 ];
+export const mother: Mother[] = [
+  {
+    id: 'mother1',
+    firstName: 'Evangeline',
+    lastName: 'Dela Cruz',
+    barangay: 'Bangad',
+    isTransient: false,
+    gmail: 'evangeline.cruz@gmail.com',
+    phone: '+639587485326',
+    purok: '2',
+    children: child.filter((child) => child.motherId === 'mother1'),
+  },
+];
+
+export const user: User[] = [
+  {
+    id: 'midwife1',
+    role: 'Midwife',
+    firstName: 'Maricel',
+    lastName: 'Nool',
+    dateOfService: '2017-08-01', // 7 years of service
+    username: 'wesawe',
+    passwordHash: 'wesawe',
+    secretKey: 'midwife-secret-key',
+  },
+  {
+    id: 'bhw1',
+    role: 'BHW',
+    firstName: 'Wilma',
+    lastName: 'Caraan',
+    dateOfService: '1996-01-15', // 28 years of service
+    username: 'ssssss',
+    passwordHash: 'ssssss',
+    secretKey: 'bhw-secret-key',
+  },
+];
+export const nutritionalStatusReport: NutritionalStatusReport[] = [];
+export const notification: Notification[] = [];
+export const auditTrail: AuditTrail[] = [];
+export const userSchedule: Schedule[] = [];

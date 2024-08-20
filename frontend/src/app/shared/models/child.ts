@@ -3,6 +3,7 @@ import { WeighingHistory } from './weighing-history';
 
 export interface Child {
   id: string;
+  motherId: string;
   firstName: string;
   lastName: string;
   purok: string;

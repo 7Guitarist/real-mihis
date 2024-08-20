@@ -3,7 +3,8 @@ export interface User {
   role: string; // BHW, Midwife, Admin
   firstName: string;
   lastName: string;
-  dateOfService: Date;
+  // dateOfService: Date;
+  dateOfService: string;
   username: string; // Either Gmail or phone number
   passwordHash: string; // Hashed password
   secretKey: string; // Used for validating roles like BHW and Midwife
