@@ -14,7 +14,7 @@ app.use((0, cors_1.default)({
 app.get("*", function (req, res) {
     res.sendFile(path_1.default.join(__dirname, "public", "index.html"));
 });
-var port = 5000;
+var port = process.env.PORT || 5000;
 app.listen(port, function () {
-    console.log("Website served on http://localhost:" + port);
+    console.log("Website served on http://localhost:".concat(port));
 });
