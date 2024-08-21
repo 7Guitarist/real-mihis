@@ -17,4 +17,26 @@ export class ChildService {
       child.firstName.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
+
+  getChildrenById(id: string): Child {
+    return (
+      this.getAll().find((children) => children.id === id) ?? {
+        id: '',
+        motherId: '',
+        firstName: '',
+        lastName: '',
+        purok: '',
+        gender: '',
+        weight: 0,
+        height: 0,
+        barangay: '',
+        dateOfBirth: '',
+        photoPath: '',
+        vaccinations: [],
+        isFullyVaccinated: false,
+        dateFullyVaccinated: '',
+        weighingHistory: [],
+      }
+    );
+  }
 }
