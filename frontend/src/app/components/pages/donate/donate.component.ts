@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'main-header',
+  selector: 'app-donate',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  templateUrl: './donate.component.html',
+  styleUrl: './donate.component.css',
 })
-export class HeaderComponent {}
+export class DonateComponent {}

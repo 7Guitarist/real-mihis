@@ -304,6 +304,14 @@ body {
   margin: 10px 0;
 }
 
+.logo.vvld a {
+  color: var(--bg-accent);
+  padding: 0 4px;
+}
+.logo.vvld a:hover {
+  background: #8ce8cd;
+}
+
 .global-btn {
   width: 100%;
   display: inline-flex;
@@ -430,6 +438,3 @@ body {
   height: auto;
 }
 /* #endregion Table Group */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

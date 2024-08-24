@@ -19,7 +19,7 @@ export const child: Child[] = [
     height: 98,
     barangay: 'Bangad',
     dateOfBirth: '2020-11-26',
-    photoPath: 'assets/img/photo1.jpg',
+    photoPath: 'assets/img/child-1.jpg',
     vaccinations: [
       {
         vaccineType: 'BCG',

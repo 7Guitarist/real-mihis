@@ -4,31 +4,37 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Child } from '../../../shared/models/child';
 import { ChildService } from '../../../services/child.service';
-import { FooterComponent } from '../../partials/footer/footer.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-child',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-    MatIconModule,
-    FooterComponent,
-  ],
+  imports: [CommonModule, RouterOutlet, RouterLink, MatIconModule],
   templateUrl: './child.component.html',
   styleUrl: './child.component.css',
 })
 export class ChildComponent {
   child: Child[] = [];
-
   private childService = inject(ChildService);
-
+  // public childObservable: Observable<Child[]>;
   constructor() {
-    this.child = this.childService.getAll();
+    // this.childObservable = this.childService.getAll();
+    this.childService.getAll().subscribe((children) => {
+      this.child = children;
+    });
   }
 
   search(searchTerm: string) {
-    this.child = this.childService.getAllChildrenBySearchTerm(searchTerm);
+    this.childService
+      .getAllChildrenBySearchTerm(searchTerm)
+      .subscribe((children) => {
+        this.child = children;
+      });
   }
+
+  //   search(searchTerm: string) {
+  //   this.childService.getAllChildrenBySearchTerm(searchTerm).subscribe((children) => {
+  //     this.child = children;
+  //   });
+  // }
 }

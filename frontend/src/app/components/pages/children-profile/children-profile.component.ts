@@ -1,22 +1,17 @@
-import { Component } from '@angular/core';
-import { FooterComponent } from '../../partials/footer/footer.component';
+import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Child } from '../../../shared/models/child';
 import { ChildService } from '../../../services/child.service';
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-children-profile',
   standalone: true,
-  imports: [
-    MatIconModule,
-    MatTooltipModule,
-    FooterComponent,
-    RouterLink,
-    FooterComponent,
-  ],
+  imports: [MatIconModule, MatTooltipModule, RouterLink, CommonModule],
   templateUrl: './children-profile.component.html',
   styleUrl: './children-profile.component.css',
 })
@@ -30,8 +25,24 @@ export class ChildrenProfileComponent {
   constructor(activatedRoute: ActivatedRoute, childrenService: ChildService) {
     activatedRoute.params.subscribe((params) => {
       if (params['id'])
-        this.child = childrenService.getChildrenById(params['id']);
+        childrenService
+          .getChildrenById(params['id'])
+          .subscribe((serverChild) => {
+            this.child = serverChild;
+          });
     });
+  }
+
+  // Vaccination
+
+  getVaccinationStatus(child: Child): string {
+    if (child.isFullyVaccinated) {
+      return 'Fully Vaccinated';
+    } else if (child.vaccinations.length > 0) {
+      return 'Partially Vaccinated';
+    } else {
+      return 'Not Vaccinated';
+    }
   }
 
   getAgeInMonths(dateOfBirth: string): number {
@@ -54,5 +65,35 @@ export class ChildrenProfileComponent {
         vaccineDate <= oneYearAfterBirth
       );
     }).length;
+  }
+
+  // Weighing
+  getLatestWeighing(child: Child) {
+    return child.weighingHistory.reduce((latest, entry) => {
+      return new Date(entry.date) > new Date(latest.date) ? entry : latest;
+    }, child.weighingHistory[0]);
+  }
+
+  getNutritionalStatus(latestWeighing: any): string {
+    const {
+      weightForAgeStatus,
+      heightForAgeStatus,
+      weightForLengthHeightStatus,
+    } = latestWeighing;
+
+    const statuses = [
+      weightForAgeStatus,
+      heightForAgeStatus,
+      weightForLengthHeightStatus,
+    ];
+    const normalCount = statuses.filter((status) => status === 'Normal').length;
+
+    if (normalCount === 3) {
+      return 'Normal';
+    } else if (normalCount === 1) {
+      return 'Malnourished';
+    } else {
+      return 'At risk';
+    }
   }
 }
