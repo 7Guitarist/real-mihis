@@ -161,3 +161,36 @@ export const mother: any[] = [
     children: child.filter((child) => child.motherId === "mother1"),
   },
 ];
+
+export const users: any[] = [
+  {
+    id: "midwife1",
+    role: "midwife",
+    firstName: "Maricel",
+    lastName: "Nool",
+    dateOfService: "2017-08-01", // 7 years of service
+    username: "wesawe",
+    password: "wesawe",
+    secretKey: "midwife-secret-key",
+  },
+  {
+    id: "bhw1",
+    role: "bhw",
+    firstName: "Wilma",
+    lastName: "Caraan",
+    dateOfService: "1996-01-15", // 28 years of service
+    username: "ssssss",
+    password: "ssssss",
+    secretKey: "bhw-secret-key",
+  },
+  {
+    id: "admin1",
+    role: "admin",
+    firstName: "Marvin",
+    lastName: "Genosolango",
+    dateOfService: "2000-01-15", // 28 years of service
+    username: "+639654123654",
+    password: "wesawe",
+    secretKey: "bhw-secret-key",
+  },
+];
