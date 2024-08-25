@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UsernameValidators } from '../../../shared/validators/username.validators';
 import { PasswordValidators } from '../../../shared/validators/password.validators';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-login-page',
@@ -17,14 +18,19 @@ import { PasswordValidators } from '../../../shared/validators/password.validato
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
+  userService = inject(UserService);
+  private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
   loginForm: FormGroup;
   buttonLabel: string = 'Login';
   isSubmitted = false;
+
+  returnUrl = '';
   // signUpService = inject(SignUpService);
 
-  constructor(fb: FormBuilder) {
-    this.loginForm = fb.group({
+  constructor(private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
       username: [
         '',
         [
@@ -35,6 +41,10 @@ export class LoginPageComponent {
       ],
       password: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
   }
 
   get username() {
@@ -53,8 +63,10 @@ export class LoginPageComponent {
       return;
     }
 
-    alert(
-      `username: ${this.username?.value} , \n password: ${this.password?.value}`
-    );
+    this.userService
+      .login({ username: this.username?.value, password: this.password?.value })
+      .subscribe(() => {
+        this.router.navigateByUrl(this.returnUrl);
+      });
   }
 }

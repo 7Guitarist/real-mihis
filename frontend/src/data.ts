@@ -171,28 +171,6 @@ export const mother: Mother[] = [
   },
 ];
 
-export const user: User[] = [
-  {
-    id: 'midwife1',
-    role: 'Midwife',
-    firstName: 'Maricel',
-    lastName: 'Nool',
-    dateOfService: '2017-08-01', // 7 years of service
-    username: 'wesawe',
-    passwordHash: 'wesawe',
-    secretKey: 'midwife-secret-key',
-  },
-  {
-    id: 'bhw1',
-    role: 'BHW',
-    firstName: 'Wilma',
-    lastName: 'Caraan',
-    dateOfService: '1996-01-15', // 28 years of service
-    username: 'ssssss',
-    passwordHash: 'ssssss',
-    secretKey: 'bhw-secret-key',
-  },
-];
 export const nutritionalStatusReport: NutritionalStatusReport[] = [];
 export const notification: Notification[] = [];
 export const auditTrail: AuditTrail[] = [];

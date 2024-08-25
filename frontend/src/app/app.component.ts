@@ -5,6 +5,7 @@ import { FooterComponent } from './components/partials/footer/footer.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+//
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,21 @@ export class AppComponent implements OnInit {
 
   private router = inject(Router);
 
+  // ngOnInit(): void {
+  //   this.router.events
+  //     .pipe(
+  //       filter(
+  //         (event): event is NavigationEnd => event instanceof NavigationEnd
+  //       )
+  //     )
+  //     .subscribe((event: NavigationEnd) => {
+  //       this.showHeader =
+  //         event.url !== '/donate' &&
+  //         event.url !== '/signup' &&
+  //         event.url !== '/login' &&
+  //         event.url !== '/about';
+  //     });
+  // }
   ngOnInit(): void {
     this.router.events
       .pipe(
@@ -28,11 +44,13 @@ export class AppComponent implements OnInit {
         )
       )
       .subscribe((event: NavigationEnd) => {
-        this.showHeader =
-          event.url !== '/donate' &&
-          event.url !== '/signup' &&
-          event.url !== '/login' &&
-          event.url !== '/about';
+        // List of routes where the header should be hidden
+        const hiddenHeaderRoutes = ['/donate', '/signup', '/login', '/about'];
+
+        // Check if the current route is one of those
+        this.showHeader = !hiddenHeaderRoutes.some((route) =>
+          event.url.includes(route)
+        );
       });
   }
 }
