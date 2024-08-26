@@ -19,4 +19,5 @@ export interface Child {
   // dateFullyVaccinated: Date;
   dateFullyVaccinated: string;
   weighingHistory: WeighingHistory[];
+  nutritionalStatus?: string;
 }
