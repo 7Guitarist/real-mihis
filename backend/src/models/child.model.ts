@@ -10,11 +10,11 @@ export interface Child {
   weight: number;
   height: number;
   barangay: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   photoPath: string;
   vaccinations: Vaccination[];
   isFullyVaccinated: boolean;
-  dateFullyVaccinated: string;
+  dateFullyVaccinated: Date;
   weighingHistory: WeighingHistory[];
   // Optional: Add a field for computed nutritional status, if needed
   nutritionalStatus?: string;
@@ -48,7 +48,7 @@ export interface WeighingHistory {
 // Define the WeighingHistory schema
 const WeighingHistorySchema = new Schema(
   {
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
     weight: { type: Number, required: true },
     height: { type: Number, required: true },
     weightForAgeStatus: { type: String, required: true },
@@ -74,8 +74,8 @@ const VaccinationSchema = new Schema(
     doseNumber: { type: String, required: true },
     placeOfVaccination: { type: String, required: true },
     dateOfVaccination: { type: String, required: true },
-    midwifeId: { type: String, required: true },
-    bhwId: { type: String, required: true },
+    midwifeId: { type: Schema.Types.ObjectId, ref: "user", required: true },
+    bhwId: { type: Schema.Types.ObjectId, ref: "user", required: true },
     aefi: {
       occurred: { type: Boolean, required: false },
       description: { type: String, required: false },
@@ -96,7 +96,6 @@ const VaccinationSchema = new Schema(
 // Define the Child schema
 const ChildSchema = new Schema<Child>(
   {
-    motherId: { type: Schema.Types.ObjectId, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     purok: { type: String, required: true },
@@ -104,11 +103,11 @@ const ChildSchema = new Schema<Child>(
     weight: { type: Number, required: true },
     height: { type: Number, required: true },
     barangay: { type: String, required: true },
-    dateOfBirth: { type: String, required: true },
+    dateOfBirth: { type: Date, required: true },
     photoPath: { type: String, required: false },
     vaccinations: { type: [VaccinationSchema], required: true },
     isFullyVaccinated: { type: Boolean, required: true },
-    dateFullyVaccinated: { type: String, required: false },
+    dateFullyVaccinated: { type: Date, required: false },
     weighingHistory: { type: [WeighingHistorySchema], required: true },
     nutritionalStatus: { type: String, required: false }, // Optional field
   },

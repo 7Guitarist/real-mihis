@@ -4,7 +4,7 @@ import expressAsyncHandler from "express-async-handler";
 import { ChildModel } from "../models/child.model";
 const router = Router();
 
-// get child
+// seed to db
 router.get(
   "/seed",
   expressAsyncHandler(async (req, res) => {
@@ -18,6 +18,8 @@ router.get(
     res.send("Seed is Done");
   })
 );
+
+// get child
 router.get("/child", (req, res) => {
   res.send(child);
 });
