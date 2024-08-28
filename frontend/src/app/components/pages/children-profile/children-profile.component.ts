@@ -7,11 +7,18 @@ import { Child } from '../../../shared/models/child';
 import { ChildService } from '../../../services/child.service';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PaginationComponent } from '../../partials/pagination/pagination.component';
 
 @Component({
   selector: 'app-children-profile',
   standalone: true,
-  imports: [MatIconModule, MatTooltipModule, RouterLink, CommonModule],
+  imports: [
+    MatIconModule,
+    MatTooltipModule,
+    RouterLink,
+    CommonModule,
+    PaginationComponent,
+  ],
   templateUrl: './children-profile.component.html',
   styleUrl: './children-profile.component.css',
 })
@@ -29,10 +36,36 @@ export class ChildrenProfileComponent {
           .getChildrenById(params['id'])
           .subscribe((serverChild) => {
             this.child = serverChild;
+
+            // sort the data on client side
+            this.child.vaccinations.sort((a, b) => {
+              return (
+                new Date(b.dateOfVaccination).getTime() -
+                new Date(a.dateOfVaccination).getTime()
+              );
+            });
+
+            // Sort weighingHistory by date (from recent to old)
+            this.child.weighingHistory.sort((a, b) => {
+              return new Date(b.date).getTime() - new Date(a.date).getTime();
+            });
           });
     });
   }
 
+  // Pagination
+  itemsPerPage = 5;
+  currentPage = 1;
+
+  get paginatedChildren() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.child.vaccinations.slice(start, end);
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
+  }
   // Date sorting
 
   //   child.vaccinations.sort((a, b) => {

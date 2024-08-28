@@ -157,7 +157,7 @@
                 <th>Location</th>
               </tr>
             </thead>
-            @for(vaccination of child.vaccinations; track child.id){
+            @for(vaccination of paginatedChildren; track child.id){
             <tbody>
               <tr>
                 <td>{{ vaccination.dateOfVaccination }}</td>
@@ -168,6 +168,12 @@
               </tr>
             </tbody>
             }
+            <pagination
+              [totalItems]="child.vaccinations.length"
+              [itemsPerPage]="itemsPerPage"
+              [currentPage]="currentPage"
+              (onClick)="changePage($event)"
+            ></pagination>
           </table>
         </div>
         <div class="title-wrap">
