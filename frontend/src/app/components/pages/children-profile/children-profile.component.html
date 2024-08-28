@@ -134,10 +134,13 @@
           </div>
         </div>
       </div>
+      <!--  -->
+
       <div class="child-schedule-log">
         <div class="title-wrap">
           <h2 class="stat-title">
-            Recent Michał Jankowski Vaccinations and Weight Logs
+            Recent {{ child.firstName + " " + child.lastName }} Vaccinations and
+            Weight Logs
           </h2>
         </div>
         <div class="title-wrap">
@@ -154,22 +157,17 @@
                 <th>Location</th>
               </tr>
             </thead>
+            @for(vaccination of child.vaccinations; track child.id){
             <tbody>
               <tr>
-                <td>2024-07-01</td>
-                <td>MMR</td>
-                <td>1st Dose</td>
-                <td>Dr. Smith</td>
-                <td>Pediatric Clinic</td>
-              </tr>
-              <tr>
-                <td>2024-07-15</td>
-                <td>DTap</td>
-                <td>3rd Dose</td>
-                <td>Nurse Johnson</td>
-                <td>Health Center</td>
+                <td>{{ vaccination.dateOfVaccination }}</td>
+                <td>{{ vaccination.vaccineType }}</td>
+                <td>{{ vaccination.doseNumber }}</td>
+                <td>{{ vaccination.midwifeId }}</td>
+                <td>{{ vaccination.placeOfVaccination }}</td>
               </tr>
             </tbody>
+            }
           </table>
         </div>
         <div class="title-wrap">
@@ -187,51 +185,25 @@
                 <th>Notes</th>
               </tr>
             </thead>
+            @for(weighingStat of child.weighingHistory; track child.id){
             <tbody>
               <tr>
-                <td>2024-07-01</td>
-                <td>10.5</td>
-                <td>85</td>
-                <td>Stunted</td>
-                <td>24</td>
+                <td>{{ weighingStat.date | date : "yyyy-MM-dd" }}</td>
+                <td>{{ weighingStat.weight }}</td>
+                <td>{{ weighingStat.height }}</td>
+                <td>{{ child.nutritionalStatus }}</td>
+                <td>{{ weighingStat.notes }}</td>
                 <td>
                   <div class="notes">Nutritional supplements recommended</div>
                 </td>
               </tr>
-              <tr>
-                <td>2024-07-01</td>
-                <td>14.0</td>
-                <td>95</td>
-                <td>Normal</td>
-                <td>36</td>
-                <td><div class="notes">Healthy Developmment</div></td>
-              </tr>
-              <tr>
-                <td>2024-07-21</td>
-                <td>12.0</td>
-                <td>100</td>
-                <td>Wasted</td>
-                <td>48</td>
-                <td>
-                  <div class="notes">
-                    Underweight, further assessment needed
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2024-07-01</td>
-                <td>18.0</td>
-                <td>110</td>
-                <td>Tall</td>
-                <td>60</td>
-                <td>
-                  <div class="notes">Above average height</div>
-                </td>
-              </tr>
             </tbody>
+            }
           </table>
         </div>
       </div>
+
+      <!--  -->
     </div>
   </div>
 </div>

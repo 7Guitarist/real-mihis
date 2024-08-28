@@ -6,7 +6,7 @@ const router = Router();
 
 // seed to db
 router.get(
-  "/seed",
+  "/child/seed",
   expressAsyncHandler(async (req, res) => {
     const childCount = await ChildModel.countDocuments();
     if (childCount > 0) {
@@ -20,14 +20,21 @@ router.get(
 );
 
 // get child
-router.get("/child", (req, res) => {
-  res.send(child);
-});
+router.get(
+  "/child",
+  expressAsyncHandler(async (req, res) => {
+    const children = await ChildModel.find(); // get all the value from the database without parameter
+    res.send(children);
+  })
+);
 
-router.get("/children-page/:id", (req, res) => {
-  const childId = req.params.id;
-  const childProfile = child.find((children) => children.id === childId);
-  res.send(childProfile);
-});
+router.get(
+  "/children-page/:id",
+  expressAsyncHandler(async (req, res) => {
+    const specificChild = await ChildModel.findById(req.params.id);
+
+    res.send(specificChild);
+  })
+);
 
 export default router;

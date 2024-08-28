@@ -33,6 +33,12 @@ export class ChildrenProfileComponent {
     });
   }
 
+  // Date sorting
+
+  //   child.vaccinations.sort((a, b) => {
+  //   return new Date(b.dateOfVaccination).getTime() - new Date(a.dateOfVaccination).getTime();
+  // });
+
   // Vaccination
 
   getVaccinationStatus(child: Child): string {
