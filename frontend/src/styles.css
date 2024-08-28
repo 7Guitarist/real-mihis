@@ -428,6 +428,19 @@ body {
 .user-statistics .table-group tr:hover {
   background: none;
 }
+.user-statistics {
+  position: relative;
+}
+.user-statistics .vcard-popup {
+  position: absolute;
+  bottom: 0;
+  right: 30px;
+  max-width: 100%;
+  width: auto;
+  padding: 10px;
+  border-radius: 3px;
+  z-index: 3;
+}
 
 .table-group tbody td {
   font-size: 16px;
@@ -442,3 +455,6 @@ body {
   height: auto;
 }
 /* #endregion Table Group */
+.cdk-overlay-pane.mat-mdc-dialog-panel {
+  max-width: 880px !important;
+}

@@ -8,6 +8,8 @@ import { ChildService } from '../../../services/child.service';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PaginationComponent } from '../../partials/pagination/pagination.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { VaccinePopupComponent } from '../../partials/vaccine-popup/vaccine-popup.component';
 
 @Component({
   selector: 'app-children-profile',
@@ -18,11 +20,13 @@ import { PaginationComponent } from '../../partials/pagination/pagination.compon
     RouterLink,
     CommonModule,
     PaginationComponent,
+    MatDialogModule,
   ],
   templateUrl: './children-profile.component.html',
   styleUrl: './children-profile.component.css',
 })
 export class ChildrenProfileComponent {
+  private dialogRef = inject(MatDialog);
   // Align the tooltip at top center
   vaccineCount = 'Number of Vaccine Administered / Total Required Vaccine';
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
@@ -66,6 +70,14 @@ export class ChildrenProfileComponent {
   changePage(page: number) {
     this.currentPage = page;
   }
+
+  // Pop up Vaccination
+  openDialog() {
+    this.dialogRef.open(VaccinePopupComponent, {
+      data: this.child,
+    });
+  }
+
   // Date sorting
 
   //   child.vaccinations.sort((a, b) => {
@@ -107,32 +119,32 @@ export class ChildrenProfileComponent {
   }
 
   // Weighing
-  getLatestWeighing(child: Child) {
-    return child.weighingHistory.reduce((latest, entry) => {
-      return new Date(entry.date) > new Date(latest.date) ? entry : latest;
-    }, child.weighingHistory[0]);
-  }
+  // getLatestWeighing(child: Child) {
+  //   return child.weighingHistory.reduce((latest, entry) => {
+  //     return new Date(entry.date) > new Date(latest.date) ? entry : latest;
+  //   }, child.weighingHistory[0]);
+  // }
 
-  getNutritionalStatus(latestWeighing: any): string {
-    const {
-      weightForAgeStatus,
-      heightForAgeStatus,
-      weightForLengthHeightStatus,
-    } = latestWeighing;
+  // getNutritionalStatus(latestWeighing: any): string {
+  //   const {
+  //     weightForAgeStatus,
+  //     heightForAgeStatus,
+  //     weightForLengthHeightStatus,
+  //   } = latestWeighing;
 
-    const statuses = [
-      weightForAgeStatus,
-      heightForAgeStatus,
-      weightForLengthHeightStatus,
-    ];
-    const normalCount = statuses.filter((status) => status === 'Normal').length;
+  //   const statuses = [
+  //     weightForAgeStatus,
+  //     heightForAgeStatus,
+  //     weightForLengthHeightStatus,
+  //   ];
+  //   const normalCount = statuses.filter((status) => status === 'Normal').length;
 
-    if (normalCount === 3) {
-      return 'Normal';
-    } else if (normalCount === 1) {
-      return 'Malnourished';
-    } else {
-      return 'At risk';
-    }
-  }
+  //   if (normalCount === 3) {
+  //     return 'Normal';
+  //   } else if (normalCount === 1) {
+  //     return 'Malnourished';
+  //   } else {
+  //     return 'At risk';
+  //   }
+  // }
 }

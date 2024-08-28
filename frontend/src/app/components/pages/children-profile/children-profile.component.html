@@ -82,7 +82,9 @@
           </div>
         </div>
         <div class="user-statistics">
-          <!-- TODO: Do this after consultation -->
+          <button class="vcard-popup global-btn" (click)="openDialog()">
+            Vaccination Card
+          </button>
           <div class="usr-stat-graph">
             <div class="title-wrap">
               <h2 class="stat-title">Child Statistics</h2>
@@ -119,17 +121,21 @@
                   <th>Weight For Length/Height</th>
                 </tr>
               </thead>
-              <tbody *ngIf="getLatestWeighing(child) as latestWeighing">
+              <!-- <tbody *ngIf="getLatestWeighing(child) as latestWeighing"> -->
+              @for(weighingHis of child.weighingHistory; track child.id){
+              <tbody>
                 <tr>
                   <!-- <p>Date: {{ latestWeighing.date }}</p>
                   <p>Weight: {{ latestWeighing.weight }}</p>
                   <p>Height: {{ latestWeighing.height }}</p> -->
-                  <td>{{ getNutritionalStatus(latestWeighing) }}</td>
-                  <td>{{ latestWeighing.weightForAgeStatus }}</td>
-                  <td>{{ latestWeighing.heightForAgeStatus }}</td>
-                  <td>{{ latestWeighing.weightForLengthHeightStatus }}</td>
+                  <!-- <td>{{ getNutritionalStatus(latestWeighing) }}</td> -->
+                  <td>{{ child.nutritionalStatus }}</td>
+                  <td>{{ weighingHis.weightForAgeStatus }}</td>
+                  <td>{{ weighingHis.heightForAgeStatus }}</td>
+                  <td>{{ weighingHis.weightForLengthHeightStatus }}</td>
                 </tr>
               </tbody>
+              }
             </table>
           </div>
         </div>

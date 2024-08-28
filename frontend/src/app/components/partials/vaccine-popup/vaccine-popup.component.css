@@ -1,0 +1,9 @@
+.vpopup-container {
+  width: 100%;
+  max-width: 870px;
+  min-width: 880px;
+  height: 1700px;
+  background: #fff;
+  padding: 30px;
+  overflow-y: scroll;
+}
