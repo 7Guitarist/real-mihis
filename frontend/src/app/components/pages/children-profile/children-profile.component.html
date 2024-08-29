@@ -96,7 +96,7 @@
               <thead>
                 <tr>
                   <th>Vaccine Status</th>
-                  <th>Total Vaccinations</th>
+                  <th>Vaccine Coverage</th>
                   <th>Number of Missed Vaccines</th>
                   <th>Number of Adverse Reaction</th>
                 </tr>
@@ -104,10 +104,13 @@
               <tbody>
                 <tr>
                   <td>{{ getVaccinationStatus(child) }}</td>
-                  <td>{{ countVaccinations(child) }}</td>
+                  <td>
+                    {{ getVaccinationPercentage(child) | number : "1.2-2" }}%
+                  </td>
+                  <!-- Displays the percentage -->
                   <!-- TODO: -->
                   <td>{{ "hello" }}</td>
-                  <td>12</td>
+                  <td>{{ countAEFIOccurrences(child) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -122,7 +125,7 @@
                 </tr>
               </thead>
               <!-- <tbody *ngIf="getLatestWeighing(child) as latestWeighing"> -->
-              @for(weighingHis of child.weighingHistory; track child.id){
+              @for(weighingHis of child.weighingHistory; track $index){
               <tbody>
                 <tr>
                   <!-- <p>Date: {{ latestWeighing.date }}</p>
@@ -163,7 +166,7 @@
                 <th>Location</th>
               </tr>
             </thead>
-            @for(vaccination of paginatedChildren; track child.id){
+            @for(vaccination of paginatedChildren; track $index){
             <tbody>
               <tr>
                 <td>{{ vaccination.dateOfVaccination }}</td>

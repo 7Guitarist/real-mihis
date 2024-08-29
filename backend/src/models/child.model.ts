@@ -18,6 +18,7 @@ export interface Child {
   weighingHistory: WeighingHistory[];
   // Optional: Add a field for computed nutritional status, if needed
   nutritionalStatus?: string;
+  placeOfBirth?: string;
 }
 
 export interface Vaccination {
@@ -110,6 +111,7 @@ const ChildSchema = new Schema<Child>(
     dateFullyVaccinated: { type: Date, required: false },
     weighingHistory: { type: [WeighingHistorySchema], required: true },
     nutritionalStatus: { type: String, required: false }, // Optional field
+    placeOfBirth: { type: String, required: false }, // New optional field
   },
   {
     toJSON: {

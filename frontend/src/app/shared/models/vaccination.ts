@@ -6,4 +6,9 @@ export interface Vaccination {
   dateOfVaccination: string;
   midwifeId: string; // Reference to User (Midwife)
   bhwId: string; // Reference to User (BHW)
+  aefi?: {
+    occurred: boolean;
+    description?: string;
+    severity?: string;
+  };
 }

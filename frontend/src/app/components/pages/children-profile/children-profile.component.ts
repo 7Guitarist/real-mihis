@@ -106,16 +106,33 @@ export class ChildrenProfileComponent {
   }
 
   countVaccinations(child: Child): number {
-    const oneYearAfterBirth = new Date(child.dateOfBirth);
-    oneYearAfterBirth.setFullYear(oneYearAfterBirth.getFullYear() + 1);
+    const oneYearAndSixWeeksAfterBirth = new Date(child.dateOfBirth);
+    oneYearAndSixWeeksAfterBirth.setFullYear(
+      oneYearAndSixWeeksAfterBirth.getFullYear() + 1
+    );
+    oneYearAndSixWeeksAfterBirth.setDate(
+      oneYearAndSixWeeksAfterBirth.getDate() + 42
+    ); // Add 6 weeks (42 days)
 
     return child.vaccinations.filter((vaccine) => {
       const vaccineDate = new Date(vaccine.dateOfVaccination);
       return (
         vaccineDate >= new Date(child.dateOfBirth) &&
-        vaccineDate <= oneYearAfterBirth
+        vaccineDate <= oneYearAndSixWeeksAfterBirth
       );
     }).length;
+  }
+
+  getVaccinationPercentage(child: Child): number {
+    const totalRequiredVaccines = 15; //  total
+    const administeredVaccines = this.countVaccinations(child);
+    return (administeredVaccines / totalRequiredVaccines) * 100;
+  }
+
+  countAEFIOccurrences(child: Child): number {
+    return child.vaccinations.filter(
+      (vaccination) => vaccination.aefi && vaccination.aefi.occurred
+    ).length;
   }
 
   // Weighing
