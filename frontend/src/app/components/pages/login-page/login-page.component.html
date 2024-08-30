@@ -72,7 +72,9 @@
   </div>
   <div class="title-wrap"><h2>New to MIHIS?</h2></div>
   <div class="acc-wrapper">
-    <a routerLink="sign-up">Create your MIHIS account</a>
+    <a routerLink="/signup" [queryParams]="{ returnUrl: returnUrl }"
+      >Create your MIHIS account</a
+    >
   </div>
 </div>
 <!--  -->

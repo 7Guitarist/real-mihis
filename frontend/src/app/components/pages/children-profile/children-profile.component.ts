@@ -33,6 +33,7 @@ export class ChildrenProfileComponent {
   position = new FormControl(this.positionOptions[1]);
 
   child!: Child;
+
   constructor(activatedRoute: ActivatedRoute, childrenService: ChildService) {
     activatedRoute.params.subscribe((params) => {
       if (params['id'])

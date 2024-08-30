@@ -27,7 +27,6 @@ export class LoginPageComponent implements OnInit {
   isSubmitted = false;
 
   returnUrl = '';
-  // signUpService = inject(SignUpService);
 
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
@@ -57,7 +56,7 @@ export class LoginPageComponent implements OnInit {
 
   submit() {
     this.isSubmitted = true;
-    // if (this.loginForm.invalid) return;
+
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched(); // Mark all controls as touched
       return;

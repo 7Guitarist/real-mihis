@@ -4,6 +4,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { DonateComponent } from './components/pages/donate/donate.component';
 import { ChildComponent } from './components/pages/child/child.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { SignupComponent } from './components/pages/signup/signup.component';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,10 @@ export const routes: Routes = [
     path: 'login',
     component: LoginPageComponent,
     title: 'Login to MIHIS',
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    title: 'Signup to MIHIS',
   },
 ];

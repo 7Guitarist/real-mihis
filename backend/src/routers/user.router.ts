@@ -2,7 +2,9 @@ import { Router } from "express";
 import { users } from "../data";
 import expressAsyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
-import { UserModel } from "../models/user.model";
+import { User, UserModel } from "../models/user.model";
+import { HTTP_BAD_REQUEST } from "../constants/http_status";
+import bcrypt from "bcryptjs";
 
 const router = Router();
 
@@ -21,18 +23,47 @@ router.get(
   })
 );
 
-router.post("/login", (req, res) => {
-  const { username, password } = req.body;
-  const user = users.find(
-    (user) => user.username === username && user.password === password
-  );
+router.post(
+  "/login",
+  expressAsyncHandler(async (req, res) => {
+    const { username, password } = req.body;
+    const user = await UserModel.findOne({ username, password });
 
-  if (user) {
-    res.send(generateTokenResponse(user));
-  } else {
-    res.status(400).send("Username or Password is not valid");
-  }
-});
+    if (user) {
+      res.send(generateTokenResponse(user));
+    } else {
+      res.status(HTTP_BAD_REQUEST).send("Username or Password is not valid");
+    }
+  })
+);
+
+router.post(
+  "/signup",
+  expressAsyncHandler(async (req, res) => {
+    const { firstName, lastName, username, password } = req.body;
+    const user = await UserModel.findOne({ username });
+    if (user) {
+      // user with that username exist return
+      res.status(HTTP_BAD_REQUEST).send("User is already exist, please login");
+      return;
+    }
+    const encryptedPassword = await bcrypt.hash(password, 10); //encrypt the password
+
+    const newUser: User = {
+      id: "",
+      firstName,
+      lastName,
+      username: username.toLowerCase(),
+      password: encryptedPassword,
+    }; // create new user
+
+    //save to the database
+    const dbUser = await UserModel.create(newUser);
+    // user to generate token response and directly making the user login after the registration
+
+    res.send(generateTokenResponse(dbUser));
+  })
+);
 
 const generateTokenResponse = (user: any) => {
   const token = jwt.sign(
@@ -40,14 +71,24 @@ const generateTokenResponse = (user: any) => {
       username: user.username,
       role: user.role,
     },
-    "SomeRandomText",
+    process.env.JWT_SECRET!,
     {
       expiresIn: "60d",
     }
   );
 
-  user.token = token;
-  return user;
+  // console.log("Generated Token:", token); // Log the token
+
+  return {
+    _id: user._id,
+    role: user.role,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    username: user.username,
+    token: token, // Make sure token is included in the return object
+  };
+  // user.token = token;
+  // return user;
 };
 
 export default router;
