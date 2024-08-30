@@ -47,20 +47,17 @@
       <div class="vvld-form-group">
         <label for="emailOrPhone">Mobile number or email</label>
         <input
-          formControlName="emailOrPhone"
+          formControlName="username"
           type="text"
           id="emailOrPhone"
           placeholder="Enter mobile number or email"
           class="form-ctrl"
         />
-        <div
-          *ngIf="emailOrPhone?.touched && emailOrPhone?.invalid"
-          class="form-error"
-        >
-          <div *ngIf="emailOrPhone?.errors?.['required']">
+        <div *ngIf="username?.touched && username?.invalid" class="form-error">
+          <div *ngIf="username?.errors?.['required']">
             &#42; This field is required
           </div>
-          <div *ngIf="emailOrPhone?.errors?.['invalidEmailPhone']">
+          <div *ngIf="username?.errors?.['isEmailOrPhone']">
             &#42; Please enter a valid email or phone number
           </div>
         </div>
@@ -84,6 +81,34 @@
           </div>
         </div>
       </div>
+      <!-- Confirm Password -->
+      <div class="vvld-form-group">
+        <label for="con-password">Confirm Password</label>
+        <input
+          formControlName="confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+          id="con-password"
+          class="form-ctrl"
+        />
+        <div
+          *ngIf="confirmPassword?.touched && confirmPassword?.invalid"
+          class="form-error"
+        >
+          <div *ngIf="confirmPassword?.errors?.['required']">
+            &#42; Password is required
+          </div>
+        </div>
+        <div
+          class="form-error"
+          *ngIf="
+            confirmPasswordValid && signUpForm?.invalid && passwordMismatchError
+          "
+        >
+          &#42; Passwords do not match.
+        </div>
+      </div>
+      <!-- Confirm Password -->
       <button type="submit" class="global-btn">{{ buttonLabel }}</button>
     </form>
     <p class="vvld-text">

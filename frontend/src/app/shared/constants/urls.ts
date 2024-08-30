@@ -5,4 +5,4 @@ export const CHILD_URL = BASE_URL + '/api/child';
 export const CHILDREN_PROFILE_URL = BASE_URL + '/api/children-page/';
 export const USER_LOGIN_URL = BASE_URL + '/api/users/login';
 
-export const USER_SIGNUP_URL = BASE_URL + '/api/users/register';
+export const USER_SIGNUP_URL = BASE_URL + '/api/users/signup';

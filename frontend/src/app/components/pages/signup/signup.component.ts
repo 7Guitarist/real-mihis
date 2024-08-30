@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -20,7 +20,7 @@ import { IUserSignUp } from '../../../shared/models/iuserSignup';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   signUpForm!: FormGroup;
   buttonLabel: string = 'Continue';
   returnUrl = '';
@@ -30,27 +30,8 @@ export class SignupComponent {
   private userService = inject(UserService);
   private ActivatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
-  private UserService = inject(UserService);
 
-  constructor() {
-    this.signUpForm = this.fb.group(
-      {
-        firstName: ['', [Validators.required, Validators.minLength(2)]],
-        lastName: ['', [Validators.required, Validators.minLength(2)]],
-        emailOrPhone: [
-          '',
-          [Validators.required, UsernameValidators.isEmailOrPhone],
-        ],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', Validators.required],
-      },
-      {
-        validators: PasswordValidators.passwordShouldMatch,
-      }
-    );
-
-    this.returnUrl = this.ActivatedRoute.snapshot.queryParams['returnUrl'];
-  }
+  constructor() {}
 
   get firstName() {
     return this.signUpForm.get('firstName');
@@ -60,8 +41,8 @@ export class SignupComponent {
     return this.signUpForm.get('lastName');
   }
 
-  get emailOrPhone() {
-    return this.signUpForm.get('emailOrPhone');
+  get username() {
+    return this.signUpForm.get('username');
   }
 
   get password() {
@@ -76,6 +57,25 @@ export class SignupComponent {
   passwordMismatchError: boolean = false;
 
   ngOnInit(): void {
+    // form
+    this.signUpForm = this.fb.group(
+      {
+        firstName: ['', [Validators.required, Validators.minLength(2)]],
+        lastName: ['', [Validators.required, Validators.minLength(2)]],
+        username: [
+          '',
+          [Validators.required, UsernameValidators.isEmailOrPhone],
+        ],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+      },
+      {
+        validators: PasswordValidators.passwordShouldMatch,
+      }
+    );
+
+    this.returnUrl = this.ActivatedRoute.snapshot.queryParams['returnUrl'];
+    // form
     // Subscribe to form value changes
     this.signUpForm.valueChanges
       .pipe(
@@ -85,14 +85,12 @@ export class SignupComponent {
         distinctUntilChanged()
       )
       .subscribe(() => {
-        const emailOrPhoneValue = this.emailOrPhone?.value;
+        const usernameValue = this.username?.value;
 
-        if (emailOrPhoneValue) {
-          if (UsernameValidators.isValidEmail(this.emailOrPhone) === null) {
+        if (usernameValue) {
+          if (UsernameValidators.isValidEmail(this.username) === null) {
             this.buttonLabel = 'Verify Email';
-          } else if (
-            UsernameValidators.isValidPhone(this.emailOrPhone) === null
-          ) {
+          } else if (UsernameValidators.isValidPhone(this.username) === null) {
             this.buttonLabel = 'Verify Phone';
           } else {
             this.buttonLabel = 'Continue';

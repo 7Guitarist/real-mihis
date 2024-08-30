@@ -27,13 +27,18 @@ router.post(
   "/login",
   expressAsyncHandler(async (req, res) => {
     const { username, password } = req.body;
-    const user = await UserModel.findOne({ username, password });
+    const user = await UserModel.findOne({ username });
 
-    if (user) {
+    if (user && (await bcrypt.compare(password, user.password))) {
       res.send(generateTokenResponse(user));
     } else {
-      res.status(HTTP_BAD_REQUEST).send("Username or Password is not valid");
+      res.status(HTTP_BAD_REQUEST).send("Username or password is invalid!");
     }
+    // if (user) {
+    //   res.send(generateTokenResponse(user));
+    // } else {
+    //   res.status(HTTP_BAD_REQUEST).send("Username or Password is not valid");
+    // }
   })
 );
 
