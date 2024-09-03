@@ -9,6 +9,13 @@
         "build": "npm run frontend:build && npm run backend:build",
         "frontend:build": "cd frontend && npm install && npm run build",
         "backend:build": "cd backend && npm install && npm run build",
-        "serve": "cd backend && npm run start"
+        "serve": "cd backend && npm run start",
+        "prebuild": "npm run backend:clean",
+        "backend:clean": "rimraf backend/src/public",
+        "copy-frontend": "npm run backend:clean && node backend/copy-frontend.js"
+    },
+    "devDependencies": {
+        "ncp": "^2.0.0",
+        "rimraf": "^6.0.1"
     }
 }
