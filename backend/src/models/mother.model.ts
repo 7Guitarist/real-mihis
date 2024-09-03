@@ -1,9 +1,21 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
-var mongoose_1 = require("mongoose");
-// Define the User schema
-var UserSchema = new mongoose_1.Schema({
+import { model, Schema } from "mongoose";
+
+export interface Mother {
+  id: string;
+  firstName: string;
+  lastName: string;
+  barangay: string;
+  isTransient: boolean;
+  email?: string;
+  phone?: string;
+  purok: string;
+  photoPath?: string;
+  children?: Schema.Types.ObjectId[];
+}
+
+// Define the Mother schema
+const MotherSchema = new Schema(
+  {
     role: { type: String, required: false }, // BHW, Midwife, Admin
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
@@ -12,15 +24,18 @@ var UserSchema = new mongoose_1.Schema({
     dateOfService: { type: Date, required: false }, // Consider changing to Date if performing date operations
     gender: { type: String, required: false },
     photoPath: { type: String, required: false }, // Optional secret key for future use
-    secretKey: { type: String, required: false }, // Optional secret key for future use
-}, {
+    children: [{ type: Schema.Types.ObjectId, ref: "Child", required: false }], // Array of ObjectIds
+  },
+  {
     toJSON: {
-        virtuals: true,
+      virtuals: true,
     },
     toObject: {
-        virtuals: true,
+      virtuals: true,
     },
     timestamps: true,
-});
+  }
+);
+
 // Create and export the User model
-exports.UserModel = (0, mongoose_1.model)("user", UserSchema);
+export const MotherModel = model<Mother>("mother", MotherSchema);

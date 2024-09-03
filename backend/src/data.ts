@@ -4147,9 +4147,9 @@ export const mother: any[] = [
     barangay: "Bangad",
     isTransient: false,
     gmail: "evangeline.cruz@gmail.com",
-    phone: "+639587485326",
+
     purok: "2",
-    children: "id1 id2",
+    children: "66ce8d2718d2e9429cebaea2",
   },
 ];
 
@@ -4241,4 +4241,3 @@ export const users: any[] = [
 ];
 
 // +639654123654
-//

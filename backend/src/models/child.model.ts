@@ -2,7 +2,6 @@ import { model, Schema } from "mongoose";
 
 export interface Child {
   id: string;
-  motherId: Schema.Types.ObjectId;
   firstName: string;
   lastName: string;
   purok: string;
